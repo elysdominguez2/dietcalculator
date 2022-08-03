@@ -1,10 +1,70 @@
 // Program
 
+if (process.argv.length !== 7) {
+    console.log(`
+    You gave ${process.argv.length - 2} arguments (s) to the program.
+
+    Please provide 5 arguments for:
+
+    weight (kg),
+    height (m),
+    age (years),
+    whether your exercise daily (yes or no),
+    and your gender (m o f)
+
+    Example:
+    $ node index.js 82 1.79 32 yes m
+    `);
+
+    process.exit();
+}
+
 const weightInKg = parseInt(process.argv[2]);
 const heightInM = parseFloat(process.argv[3]);
 const age = parseInt(process.argv[4]);
 const dailyExercise = process.argv[5];
 const gender = process.argv[6];
+
+if (isNaN(weightInKg) || isNaN(heightInM) || isNaN(age)) {
+    console.log(`
+        Please make sure weight, height and age are numbers:
+
+        weight (kg) example: 82 | your imput: ${process.argv[2]}
+        height (m) example: 1.79 | your imput: ${process.argv[3]}
+        age (years) example: 32 | your imput: ${process.argv[4]}
+
+        $ node index.js 82 1.79 32 yes m
+
+    `);
+    process.exit();
+}
+
+if( weightInKg < 30 || weightInKg > 300 ) {
+    console.log(`
+        Please provide a number for weight in kilograms between 30 a 300
+
+        For example: $ node index.js 82 1.79 32 yes m
+    `);
+    process.exit();
+}
+
+if(age < 20) {
+    console.log(`
+        This BMI calculator is designed for people over 20 years old.
+        Yoy are very young, enjoy your life!
+    `);
+    process.exit();
+}
+
+if(dailyExercise !== ('yes' || 'no')) {
+    console.log(`
+        Please specify if you exercise daily with "yes" or "no" 
+
+        For example: $ node index.js 82 1.79 32 yes m
+    `);
+
+    process.exit();
+}
 
 // console.log("weight: ", weightInKg);
 // console.log( "height: ", heightInM);
