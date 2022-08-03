@@ -3,20 +3,43 @@
 const weightInKg = parseInt(process.argv[2]);
 const heightInM = parseFloat(process.argv[3]);
 const age = parseInt(process.argv[4]);
+const dailyExercise = process.argv[5];
+const gender = process.argv[6];
 
-console.log("weight: ", weightInKg);
-console.log( "height: ", heightInM);
-console.log("age: ", age);
+// console.log("weight: ", weightInKg);
+// console.log( "height: ", heightInM);
+// console.log("age: ", age);
+// console.log("exercise: ", dailyExercise);
+// console.log("gender: ", gender);
 
 const BMI = weightInKg / (heightInM * heightInM);
 const idealWeight = 22.5 * heightInM * heightInM;
-const BMR = (10 * weightInKg) + (6.25 * (heightInM * 100)) - (5 * age);// It should be 1778,75
-const caloriesPerDay = BMR * 1.4;
+
+
+let BMR;
+
+if (gender === "f") {
+    BMR = (10 * weightInKg) + (6.25 * (heightInM * 100)) - (5 * age) - 150; 
+} else {
+    BMR = (10 * weightInKg) + (6.25 * (heightInM * 100)) - (5 * age) + 50; 
+}
+
+
+let caloriesPerDay;
+let advice;
+
+if (dailyExercise === "yes") {
+    caloriesPerDay = BMR * 1.6;
+    advice = 'That is great, you are closer!';
+} else {
+    caloriesPerDay = BMR * 1.4;
+    advice = 'You should do some exersice!';
+}
+
+
 const weightToLose = weightInKg - idealWeight;
 const weeksToLoseWeight = weightToLose / 0.5;
 const caloriesShouldConsume = caloriesPerDay - 500; 
-
-
 
 
 console.log(
@@ -28,6 +51,8 @@ console.log(
     height: ${heightInM} m
     weight: ${weightInKg} kg
     age: ${age} years
+    exercise: ${dailyExercise}
+    gender: ${gender}
 
     FACING THE FACTS
     ----------------
@@ -44,7 +69,11 @@ console.log(
     DIET PLAN
     ---------
 
-    If you want to reach your ideal weight of ${Math.round(idealWeight)} kg:
+    Are you doing exercise? ${dailyExercise }
+    
+    ${advice}
+
+    If you want to reach your ideal weight of ${Math.round(idealWeight)} kg
 
     You should eat ${Math.round(caloriesShouldConsume)} calories per day for ${Math.round(weeksToLoseWeight)} weeks;
 
