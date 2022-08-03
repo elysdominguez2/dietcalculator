@@ -38,8 +38,18 @@ if (dailyExercise === "yes") {
 
 
 const weightToLose = weightInKg - idealWeight;
-const weeksToLoseWeight = weightToLose / 0.5;
-const caloriesShouldConsume = caloriesPerDay - 500; 
+let weeksToLoseWeight;
+let caloriesShouldConsume;
+
+if(weightInKg >= idealWeight) {
+    weeksToLoseWeight = weightToLose / 0.5;
+    caloriesShouldConsume = caloriesPerDay - 500;
+} else{
+    weeksToLoseWeight = Math.abs(weightToLose / 0.5);
+    caloriesShouldConsume = caloriesPerDay + 500; 
+}
+// console.log(caloriesShouldConsume);
+ 
 
 
 console.log(
